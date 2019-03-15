@@ -1,0 +1,78 @@
+web:
+ image: nginx:latest
+ ports:
+ - "8080:80"
+ volumes:
+ - ./code:/code
+ - ./site.conf:/etc/nginx/conf.d/site.conf
+ links:
+ - php
+php:
+ image: php:7-fpm
+ volumes:
+ - ./code:/code
+
+
+
+
+# version: '3'
+# services: 
+#   #PHP
+#   php-fpm:
+#     image: php:7.2-fpm
+#     expose:
+#       - "9000"
+#     volumes:
+#       - ./:/var/www
+#     networks:
+#       - app-network
+ 
+#   #Nginx
+#   webserver:
+#     image: nginx:alpine
+#     container_name: webserver
+#     restart: unless-stopped
+#     ports:
+#       - "222:222"
+#       - "2020:443"
+#     volumes:
+#       - ./:/var/www
+#       - ./nginx/conf.d/:/etc/nginx/conf.d/
+#     networks:
+#       - app-network
+ 
+#   #POSTGRES_DB
+#   db:
+#     image: postgres:11.2
+#     container_name: db
+#     restart: unless-stopped
+#     tty: true
+#     ports:
+#       - "5432:5432"
+#     environment:
+#         - POSTGRES_DB={POSTGRES_DB}
+#         - POSTGRES_USER={POSTGRES_USER}
+#         - POSTGRES_PASSWORD={POSTGRES_PASSWORD}
+#     volumes:
+#         - ~/data/postgres:/var/lib/postgresql/data
+#     networks:
+#       - app-network 
+
+#   # # Redis 
+#   #   redis:
+#   #     build: ./redis
+#   #     volumes:
+#   #     # RUTA Point to the path of your applications code on your host
+#   #       - '{RUTA}'/redis:/data
+#   #     ports:
+#   #       - "6379:6379"
+#   #     networks:
+#   #       - app-network 
+# #Redes
+# networks:
+#   app-network:
+#     driver: bridge
+# #Volumenes
+# volumes:
+#   dbdata:
+#     driver: local
